@@ -21,24 +21,22 @@ const AuthDetail = mongoose.model("authDetail", AuthSchema);
 
 
 app.post("/signup", (req, res) => {
+  console.log("BODY", req.body);
   let { name, password } = req.body;
-  console.log(name);
+  console.log("NAME", name);
   if (!name || !password || name.length <= 5 || password.length <= 5) {
     res.send({ res: "Rejected" });
     return;
   }
 AuthDetail.findOne({name: name}).then((user)=> {
-    if(user.name !== name){
-        console.log("In Allowed ",user.name);
-      const authData = new AuthDetail({ name, password });
-      authData.save().then(() => res.send({ res: "Allowed" }));
-       
-    }else{
+    
+    
       console.log("In Existed", user.name);
       res.send({res : "Already Existed"})
       res.end();
-    }
-  });
+    
+  }).catch((err) => {  const authData = new AuthDetail({ name, password });
+  authData.save().then(() => res.send({ res: "Allowed" }));});
   
 });
 
@@ -57,3 +55,5 @@ app.post("/login", (req, res) => {
     })
    
   }); 
+
+  app.listen(4000, () => {console.log("Connected to Port 4000")});

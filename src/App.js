@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Home from "./home";
 import Login from "../src/auth/login";
 import SignUp from "../src/auth/signUp";
@@ -11,7 +11,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/" component={Home} />
+        <Route path="/home" component={Home} />
         <Redirect to="/login" />
       </Switch>
     </div>
